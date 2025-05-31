@@ -21,7 +21,6 @@ export const FoodsProvider = ({ children }) => {
   const { toast } = useToast();
   const params = useParams();
 
-  // Rating dialog states
   const [isRatingDialogOpen, setIsRatingDialogOpen] = useState(false);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
@@ -61,7 +60,6 @@ export const FoodsProvider = ({ children }) => {
     }
   };
 
-  // Favorite foods fetching
   useEffect(() => {
     if (!user) return;
 
@@ -115,7 +113,6 @@ export const FoodsProvider = ({ children }) => {
         loading,
         favoriteFoods,
         handleFavorite,
-        // Rating
         isRatingDialogOpen,
         openRatingDialog,
         closeRatingDialog,

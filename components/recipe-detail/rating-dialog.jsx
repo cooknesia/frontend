@@ -27,7 +27,6 @@ export default function RatingDialog() {
     submitRating,
   } = useFoodsStore();
 
-  // submitRating(id, user.id, rating, token)
   const { id } = useParams();
   const { user, token } = useAuth();
 

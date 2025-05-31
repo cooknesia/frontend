@@ -24,11 +24,11 @@ export function IngredientsList() {
         if (keyword) {
           const data = await searchIngredientsByKeyword(keyword)
           setIngredients(data)
-          setTotalPages(1) // Search results don't have pagination in this API
+          setTotalPages(1) 
         } else {
           const response = await getAllIngredients(page)
           setIngredients(response.ingredients)
-          setTotalPages(Math.ceil(response.count / 20)) // Assuming 20 items per page
+          setTotalPages(Math.ceil(response.count / 20))  
         }
       } catch (error) {
         console.error("Failed to fetch ingredients:", error)

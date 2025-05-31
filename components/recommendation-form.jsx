@@ -40,7 +40,6 @@ export function RecommendationForm() {
   }, [])
 
   useEffect(() => {
-    // Check if there are ingredients in the URL
     const ingredientIds = searchParams.get("ingredients")
     if (ingredientIds && availableIngredients.length > 0) {
       const ids = ingredientIds.split(",").map((id) => Number.parseInt(id))
@@ -60,7 +59,6 @@ export function RecommendationForm() {
         console.error("Failed to search ingredients:", error)
       }
     } else if (value.trim().length === 0) {
-      // Reset to all ingredients if search is cleared
       try {
         const response = await getAllIngredients(1)
         setAvailableIngredients(response.ingredients)
@@ -104,7 +102,6 @@ export function RecommendationForm() {
       const ingredientIds = selectedIngredients.map((ing) => ing.id)
       await getFoodRecommendations(user.id, ingredientIds)
 
-      // Update URL to reflect selected ingredients
       const params = new URLSearchParams()
       params.set("ingredients", ingredientIds.join(","))
       router.push(`/recommendations?${params.toString()}`)

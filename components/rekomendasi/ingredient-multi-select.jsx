@@ -49,7 +49,7 @@ export default function IngredientMultiSelect({
     if (isLoading) return;
     setIsLoading(true);
     try {
-      const response = await getIngredients(pageNum); // ✅ langsung page number
+      const response = await getIngredients(pageNum); 
       const newIngredients = response.data.ingredients || [];
 
       if (pageNum === 1) {

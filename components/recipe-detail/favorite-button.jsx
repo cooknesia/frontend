@@ -1,6 +1,5 @@
 "use client";
 
-// import { useFoods } from "@/context/foods-context";
 import { cn } from "@/lib/utils";
 import { Heart, Loader2 } from "lucide-react";
 import { useParams } from "next/navigation";
