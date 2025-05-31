@@ -1,0 +1,11 @@
+node_modules
+.next
+public
+styles/*.css
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.json
+*.config.js
+*.config.mjs
