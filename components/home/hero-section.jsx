@@ -34,19 +34,7 @@ export default function Hero() {
               className="h-full w-fit object-contain"
               priority
             />
-            <div className="absolute h-[30%] bottom-0 w-full bg-gradient-to-t from-black/60  to-transparent flex flex-col justify-end p-6">
-              {/* <div className="flex gap-2 mb-2">
-                {[
-                  { tag: "Pedas", key: "spicy" },
-                  { tag: "Tradisional", key: "traditional" },
-                  { tag: "Otentik", key: "authentic" },
-                ].map((item) => (
-                  <span key={nanoid()} className="bg-custom-red text-white text-xs px-2 py-1 rounded-full">
-                    {item.tag}
-                  </span>
-                ))}
-              </div> */}
-              {/* <h3 className="text-white text-2xl font-bold">Rasakan Kekayaan Warisan Kuliner</h3> */}
+            <div className="absolute h-[30%] bottom-0 w-full bg-gradient-to-t from-black/60  to-transparent flex flex-col justify-end p-6"> 
             </div>
           </div>
         </div>

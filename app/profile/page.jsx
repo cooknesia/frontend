@@ -113,7 +113,6 @@ export default function ProfilePage() {
           </CardHeader>
         </Card>
 
-        {/* Profile Tabs */}
         <Tabs defaultValue="favorites" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="favorites">Resep Favorit</TabsTrigger>

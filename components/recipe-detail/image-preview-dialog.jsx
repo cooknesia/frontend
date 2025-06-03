@@ -9,14 +9,13 @@ import {
 } from "@/components/ui/dialog";
 import { X, ZoomIn } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 export default function ImagePreviewDialog({ src, alt, title }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
-      {/* Clickable Image */}
+    <Fragment>
       <div
         className="relative w-full h-full cursor-pointer group"
         onClick={() => setIsOpen(true)}
@@ -36,7 +35,6 @@ export default function ImagePreviewDialog({ src, alt, title }) {
         </div>
       </div>
 
-      {/* Full Preview Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden">
           <DialogHeader className="absolute top-0 left-0 right-0 z-10 bg-black bg-opacity-50 text-white p-4">
@@ -66,6 +64,6 @@ export default function ImagePreviewDialog({ src, alt, title }) {
           </div>
         </DialogContent>
       </Dialog>
-    </>
+    </Fragment>
   );
 }

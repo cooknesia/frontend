@@ -4,7 +4,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 export default function ProfileSkeleton() {
   return (
     <div className="container mx-auto py-8 px-4 max-w-4xl">
-      {/* Profile Header Skeleton */}
       <Card className="mb-8">
         <CardHeader className="pb-4">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
@@ -23,7 +22,6 @@ export default function ProfileSkeleton() {
         </CardHeader>
       </Card>
 
-      {/* Tabs Skeleton */}
       <div className="space-y-4">
         <div className="grid w-full grid-cols-2 gap-2">
           <Skeleton className="h-10 w-full" />

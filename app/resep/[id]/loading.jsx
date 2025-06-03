@@ -6,12 +6,10 @@ export default function RecipeDetailSkeleton() {
     <div className="container mx-auto py-8 px-4">
       <Card className="overflow-hidden border-none shadow-lg">
         <div className="flex flex-col md:flex-row">
-          {/* Left side - Image Skeleton */}
           <div className="w-full md:w-2/5 aspect-square">
             <Skeleton className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity" />
           </div>
 
-          {/* Right side - Content Skeleton */}
           <div className="w-full md:w-3/5">
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
@@ -42,7 +40,6 @@ export default function RecipeDetailSkeleton() {
 
               <Skeleton className="h-10 w-32 mb-6" />
 
-              {/* Tabs Skeleton */}
               <div className="mt-4">
                 <div className="grid w-full grid-cols-2 gap-2 mb-4">
                   <Skeleton className="h-10 w-full" />

@@ -22,16 +22,7 @@ export default function NotFound() {
             </p>
           </div>
 
-          <div className="space-y-3">
-            {/* <Button
-              asChild
-              className="w-full bg-orange-500 hover:bg-orange-600"
-            >
-              <Link href="/recipes">
-                <Search className="mr-2 h-4 w-4" />
-                Cari Resep Lain
-              </Link>
-            </Button> */}
+          <div className="space-y-3"> 
 
             <Button
               asChild
