@@ -125,7 +125,13 @@ export default function Header() {
           </Sheet>
 
           <Link href="/" className="flex items-center gap-2">
-            {/* <Icon /> */}
+            <Image
+              src="/logo-cooknesia.jpg"
+              alt="Logo Cooknesia"
+              width={32}
+              height={32}
+              className="hidden sm:inline-block rounded"
+            />
             <span className="font-bold text-xl hidden sm:inline-block">
               Cooknesia
             </span>
