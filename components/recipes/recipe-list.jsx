@@ -2,6 +2,7 @@
 
 import { RecipeCard } from "@/components/recipe-card";
 import { getAllFoods } from "@/lib/api/api";
+import { FolderOpen } from "lucide-react";
 import { nanoid } from "nanoid";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -78,7 +79,8 @@ export function RecipeList() {
 
   if (recipes.length === 0 && !isLoading) {
     return (
-      <div className="text-center text-gray-500 py-8">
+      <div className="text-center text-gray-500 py-8 flex flex-col items-center justify-center border-2 border-dashed gap-3 rounded-xl">
+        <FolderOpen className="h-20 w-20 text-gray-400" />
         Tidak ada resep yang ditemukan.
       </div>
     );

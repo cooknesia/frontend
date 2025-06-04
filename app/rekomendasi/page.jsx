@@ -15,7 +15,7 @@ import { useAuth } from "@/context/auth-context";
 import { getRecomendationFoods } from "@/lib/api/api";
 import { formatDate } from "@/lib/utils";
 import { useFoodsStore } from "@/store/use-foods";
-import { ChefHat, Loader2, Search } from "lucide-react";
+import { ChefHat, FolderOpen, Loader2, Search } from "lucide-react";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 
@@ -38,7 +38,6 @@ export default function RecommendationPage() {
   useEffect(() => {
     if (!user || !token) return;
     fetchHistoryIngredients(user.id, token);
-    // BUKAN DISINI
   }, [user, token]);
 
   const handleGetRecommendations = async () => {
@@ -165,29 +164,63 @@ export default function RecommendationPage() {
                 </div>
               </CardContent>
             </Card>
-            <Card className={`mb-8 ${activeTab === "rekomendasi" && "hidden"}`}>
+            <Card
+              className={`mb-8 max-h-[450px] overflow-auto ${activeTab === "rekomendasi" && "hidden"}`}
+            >
               <CardContent className="p-2 flex gap-2 flex-col">
                 {!loadHistoryIngredients ? (
-                  historyIngredients.map((item) => (
-                    <div
-                      key={item.id}
-                      className={`border rounded-md p-2 cursor-pointer hover:bg-gray-50 transition-colors ${
-                        activeHistory?.id === item.id && "bg-gray-100"
-                      }`}
-                      onClick={() => handleActiveHistory(item)}
-                    >
-                      <div className="flex gap-1 flex-wrap">
-                        {item.selected_ingredients.map((v) => (
-                          <Badge className="line-clamp-1" key={nanoid()}>
-                            {v}
-                          </Badge>
-                        ))}
+                  historyIngredients.length > 0 ? (
+                    historyIngredients.map((item) => (
+                      <div
+                        key={item.id}
+                        className={`border rounded-md p-2 cursor-pointer hover:bg-gray-50 transition-colors ${
+                          activeHistory?.id === item.id && "bg-gray-100"
+                        }`}
+                        onClick={() => handleActiveHistory(item)}
+                      >
+                        <div className="flex gap-1 flex-wrap">
+                          {(() => {
+                            const maxVisible = 3;
+                            const visible = item.selected_ingredients.slice(
+                              0,
+                              maxVisible
+                            );
+                            const remaining =
+                              item.selected_ingredients.length - maxVisible;
+
+                            return (
+                              <>
+                                {visible.map((v) => (
+                                  <Badge
+                                    className="line-clamp-1"
+                                    key={nanoid()}
+                                  >
+                                    {v}
+                                  </Badge>
+                                ))}
+
+                                {remaining > 0 && (
+                                  <Badge
+                                    className="line-clamp-1"
+                                    variant="secondary"
+                                  >
+                                    +{remaining} lainnya
+                                  </Badge>
+                                )}
+                              </>
+                            );
+                          })()}
+                        </div>
+                        <h1 className="text-sm">
+                          {formatDate(item.created_at).relative}
+                        </h1>
                       </div>
-                      <h1 className="text-sm">
-                        {formatDate(item.created_at).relative}
-                      </h1>
+                    ))
+                  ) : (
+                    <div className="flex items-center justify-center py-6">
+                      <FolderOpen className="h-10 w-10 text-gray-400" />
                     </div>
-                  ))
+                  )
                 ) : (
                   <div className="flex flex-col gap-1">
                     {Array(8)
