@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { FavoritesList } from "@/components/favorites-list"
-import { RecommendationHistory } from "@/components/recommendation-history"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useAuth } from "@/context/auth-context"
-import Link from "next/link"
+import { FavoritesList } from "@/components/favorites-list";
+import { RecommendationHistory } from "@/components/recommendation-history";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAuth } from "@/context/auth-context";
+import Link from "next/link";
 
 export function UserProfile() {
-  const { user, logout } = useAuth() 
+  const { user, logout } = useAuth();
 
   return (
     <div className="space-y-8">
@@ -18,10 +18,7 @@ export function UserProfile() {
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
             <Avatar className="h-24 w-24">
-              <AvatarImage
-                src={user.photo_url}
-                alt={user.name}
-              />
+              <AvatarImage src={user.photo_url} alt={user.name} />
               <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
             </Avatar>
 
@@ -55,5 +52,5 @@ export function UserProfile() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

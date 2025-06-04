@@ -60,7 +60,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-white shadow-sm">
-      <div className="container flex h-16 items-center justify-between px-2">
+      <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
@@ -102,7 +102,8 @@ export default function Header() {
                       onClick={handleSheet}
                       className={cn(
                         "flex items-center text-muted-foreground hover:text-foreground transition-colors",
-                        pathname === item.href && "text-foreground font-medium"
+                        pathname === item.href &&
+                          "text-foreground font-medium text-red-800"
                       )}
                     >
                       {item.icon}
@@ -145,8 +146,9 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "text-sm font-medium px-3 py-1 border-b-2 border-transparent hover:border-muted-foreground hover:text-foreground transition-colors",
-                  pathname === item.href && "text-foreground underline underline-offset-4"
+                  "text-sm font-medium px-3 py-1 border-b-2 border-transparent hover:text-red-800",
+                  pathname === item.href &&
+                    "text-foreground text-red-800 underline underline-offset-4"
                 )}
               >
                 {item.label}
@@ -158,8 +160,9 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "text-sm font-medium px-3 py-1 border-b-2 border-transparent hover:border-muted-foreground hover:text-foreground transition-colors",
-                    pathname === item.href && "text-foreground underline underline-offset-4"
+                    "text-sm font-medium px-3 py-1 border-b-2 border-transparent hover:text-red-800",
+                    pathname === item.href &&
+                      "text-foreground underline text-red-800 underline-offset-4"
                   )}
                 >
                   {item.label}

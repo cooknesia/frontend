@@ -34,10 +34,6 @@ export default function IngredientMultiSelect({
   const listRef = useRef(null);
 
   useEffect(() => {
-    loadIngredients(1);
-  }, []);
-
-  useEffect(() => {
     if (searchQuery.trim()) {
       searchIngredients(searchQuery);
     } else {
@@ -49,7 +45,7 @@ export default function IngredientMultiSelect({
     if (isLoading) return;
     setIsLoading(true);
     try {
-      const response = await getIngredients(pageNum); 
+      const response = await getIngredients(pageNum);
       const newIngredients = response.data.ingredients || [];
 
       if (pageNum === 1) {
@@ -115,9 +111,9 @@ export default function IngredientMultiSelect({
 
   return (
     <div className="space-y-2 w-full">
-      <Popover open={open} onOpenChange={setOpen} >
+      <Popover open={open} onOpenChange={setOpen}>
         <div className="flex gap-2 w-full">
-          <PopoverTrigger asChild >
+          <PopoverTrigger asChild>
             <Button
               variant="outline"
               role="combobox"

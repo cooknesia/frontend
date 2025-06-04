@@ -6,6 +6,7 @@ import globals from 'globals';
 
 export default defineConfig([
   {
+    ignores: ["node_modules",".next", "public", "styles/*.css", "*.config.js", "*.config.mjs", "*.json"],
     files: ['**/*.{js,jsx,mjs,cjs}'],
     languageOptions: {
       globals: globals.browser,
@@ -26,6 +27,11 @@ export default defineConfig([
       
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
     },
   },
   

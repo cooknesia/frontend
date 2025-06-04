@@ -1,70 +1,69 @@
-"use client"
+"use client";
 
-import { useToast } from "@/hooks/use-toast"
-import { Facebook, Link, Share2, Twitter } from "lucide-react"
-import { useState } from "react"
-import { Button } from "../ui/button"
+import { useToast } from "@/hooks/use-toast";
+import { Facebook, Link, Share2, Twitter } from "lucide-react";
+import { useState } from "react";
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu"
-import { ToastAction } from "../ui/toast"
+} from "../ui/dropdown-menu";
+import { ToastAction } from "../ui/toast";
 
 export default function ShareButtons({ recipeName }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const { toast } = useToast()
+  const [isOpen, setIsOpen] = useState(false);
+  const { toast } = useToast();
 
-  const shareUrl = typeof window !== "undefined" ? window.location.href : ""
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
   const shareData = {
     title: recipeName,
     text: `Lihat resep ${recipeName}`,
     url: shareUrl,
-  }
+  };
 
   const handleShare = async (platform) => {
-    setIsOpen(false)
+    setIsOpen(false);
 
     switch (platform) {
       case "native":
         if (navigator.share) {
           try {
-            await navigator.share(shareData)
-            console.log("Shared successfully")
+            await navigator.share(shareData);
           } catch (err) {
-            console.log("Error sharing:", err)
+            console.error("Error sharing:", err);
           }
         } else {
-          copyToClipboard()
+          copyToClipboard();
         }
-        break
+        break;
       case "facebook":
         window.open(
           `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
           "_blank"
-        )
-        break
+        );
+        break;
       case "twitter":
         window.open(
           `https://twitter.com/intent/tweet?text=${encodeURIComponent(
             shareData.text
           )}&url=${encodeURIComponent(shareUrl)}`,
           "_blank"
-        )
-        break
+        );
+        break;
       case "whatsapp":
         window.open(
           `https://api.whatsapp.com/send?text=${encodeURIComponent(`${shareData.text} ${shareUrl}`)}`,
           "_blank"
-        )
-        break
+        );
+        break;
       case "copy":
-        copyToClipboard()
-        break
+        copyToClipboard();
+        break;
     }
-  }
+  };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareUrl).then(
@@ -73,13 +72,13 @@ export default function ShareButtons({ recipeName }) {
           title: "Link disalin!",
           description: "Link resep telah disalin ke clipboard.",
           action: <ToastAction altText="Tutup">Tutup</ToastAction>,
-        })
+        });
       },
       (err) => {
-        console.error("Could not copy text: ", err)
+        console.error("Could not copy text: ", err);
       }
-    )
-  }
+    );
+  };
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -134,5 +133,5 @@ export default function ShareButtons({ recipeName }) {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

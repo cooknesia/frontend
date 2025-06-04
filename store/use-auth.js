@@ -12,7 +12,6 @@ const useAuthStore = create((set) => ({
 
     if (storedToken && storedUser) {
       if (isTokenExpired(storedToken)) {
-        // Auto logout
         set({ token: null, user: null, loading: false });
         localStorage.removeItem("token");
         localStorage.removeItem("user");

@@ -16,8 +16,7 @@ import {
 } from "../ui/accordion";
 import { formatDate } from "@/lib/utils";
 
-export default function ProfileRecommendationHistory({ history, isLoading }) { 
-
+export default function ProfileRecommendationHistory({ history, isLoading }) {
   if (isLoading) {
     return (
       <Card>

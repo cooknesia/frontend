@@ -8,9 +8,11 @@ export default function LoginButton() {
   const { login } = useAuth();
 
   return (
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID}>
+    <GoogleOAuthProvider
+      clientId={process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID}
+    >
       <GoogleLogin
-        onSuccess={async credentialResponse => {
+        onSuccess={async (credentialResponse) => {
           try {
             const response = await signInGoogle(credentialResponse.credential);
             if (response.status === "success") {

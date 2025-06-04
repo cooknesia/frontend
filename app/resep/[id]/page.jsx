@@ -1,6 +1,6 @@
 import RecipeDetailContent from "@/components/recipe-detail/recipe-detail-content";
-import { FoodsProvider } from "@/context/foods-context";
 import { getFoodById } from "@/lib/api/api";
+import { cookies } from "next/headers";
 
 export default async function RecipePage({ params }) {
   const { id } = await params;
@@ -10,9 +10,5 @@ export default async function RecipePage({ params }) {
   }
 
   const response = await getFoodById(id);
-  return (
-    <FoodsProvider>
-      <RecipeDetailContent recipe={response.data} />
-    </FoodsProvider>
-  );
+  return <RecipeDetailContent recipe={response.data} />;
 }

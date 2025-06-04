@@ -1,5 +1,5 @@
-import { nanoid } from "nanoid"
-import { Skeleton } from "../ui/skeleton"
+import { nanoid } from "nanoid";
+import { Skeleton } from "../ui/skeleton";
 
 export default function RecipeListSkeleton({ count = 6 }) {
   return Array(count)
@@ -11,5 +11,5 @@ export default function RecipeListSkeleton({ count = 6 }) {
         <Skeleton className="h-3 w-full" />
         <Skeleton className="h-3 w-2/3" />
       </div>
-    ))
+    ));
 }

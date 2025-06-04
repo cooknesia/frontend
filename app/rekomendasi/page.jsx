@@ -9,7 +9,8 @@ import RecommendationSkeleton from "@/components/rekomendasi/recommendation-skel
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/context/auth-context";
 import { getRecomendationFoods } from "@/lib/api/api";
 import { formatDate } from "@/lib/utils";
@@ -37,7 +38,8 @@ export default function RecommendationPage() {
   useEffect(() => {
     if (!user || !token) return;
     fetchHistoryIngredients(user.id, token);
-  }, [user, token, fetchHistoryIngredients]);
+    // BUKAN DISINI
+  }, [user, token]);
 
   const handleGetRecommendations = async () => {
     if (selectedIngredients.length === 0) return;
@@ -56,6 +58,7 @@ export default function RecommendationPage() {
       console.error("Rekomendasi pengambilan kesalahan:", error);
       setRecommendations([]);
     } finally {
+      if (token) fetchHistoryIngredients(user.id, token);
       setIsLoadingRecommendations(false);
     }
   };
@@ -73,7 +76,6 @@ export default function RecommendationPage() {
   };
 
   const handleActiveHistory = (recipe) => {
-    console.log(recipe.foods);
     setActiveHistory(recipe);
   };
 
@@ -136,8 +138,8 @@ export default function RecommendationPage() {
             <TabsTrigger value="riwayat">Riwayat</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="rekomendasi" className="space-y-6">
-            <Card className="mb-8">
+          <div className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+            <Card className={`mb-8 ${activeTab === "riwayat" && "hidden"}`}>
               <CardContent className="p-3">
                 <div className="space-y-4 flex gap-2 items-center justify-center">
                   <IngredientMultiSelect
@@ -163,32 +165,42 @@ export default function RecommendationPage() {
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
-
-          <TabsContent value="riwayat">
-            <Card className="mb-8">
+            <Card className={`mb-8 ${activeTab === "rekomendasi" && "hidden"}`}>
               <CardContent className="p-2 flex gap-2 flex-col">
-                {historyIngredients.map((item) => (
-                  <div
-                    key={item.id}
-                    className={`border-b pb-2 cursor-pointer hover:bg-gray-50 transition-colors ${
-                      activeHistory?.id === item.id && "bg-gray-100"
-                    }`}
-                    onClick={() => handleActiveHistory(item)}
-                  >
-                    <div className="flex gap-1 flex-wrap">
-                      {item.selected_ingredients.map((v) => (
-                        <Badge key={nanoid()}>{v}</Badge>
-                      ))}
+                {!loadHistoryIngredients ? (
+                  historyIngredients.map((item) => (
+                    <div
+                      key={item.id}
+                      className={`border rounded-md p-2 cursor-pointer hover:bg-gray-50 transition-colors ${
+                        activeHistory?.id === item.id && "bg-gray-100"
+                      }`}
+                      onClick={() => handleActiveHistory(item)}
+                    >
+                      <div className="flex gap-1 flex-wrap">
+                        {item.selected_ingredients.map((v) => (
+                          <Badge className="line-clamp-1" key={nanoid()}>
+                            {v}
+                          </Badge>
+                        ))}
+                      </div>
+                      <h1 className="text-sm">
+                        {formatDate(item.created_at).relative}
+                      </h1>
                     </div>
-                    <h1 className="text-sm">
-                      {formatDate(item.created_at).relative}
-                    </h1>
+                  ))
+                ) : (
+                  <div className="flex flex-col gap-1">
+                    {Array(8)
+                      .fill(0)
+                      .map(() => (
+                        <Skeleton key={nanoid()} className="h-10 w-full" />
+                      ))}
                   </div>
-                ))}
+                )}
+                {}
               </CardContent>
             </Card>
-          </TabsContent>
+          </div>
         </Tabs>
         {activeTab === "rekomendasi" ? (
           renderContent()

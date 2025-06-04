@@ -11,17 +11,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/context/auth-context";
 import { useToast } from "@/hooks/use-toast";
 import { useFoodsStore } from "@/store/use-foods";
+import { Eye } from "lucide-react";
 import { nanoid } from "nanoid";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import RecipeLayout from "./layout/recipe-layout";
 import FavoriteButton from "./recipe-detail/favorite-button";
 
 export function FavoritesList() {
-  const [favorites, setFavorites] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingId, setLoadingId] = useState(null);
   const { user, token } = useAuth();
   const { loading, handleFavorite, favoriteFoods, fetchFavorites } =
     useFoodsStore();
@@ -32,9 +30,9 @@ export function FavoritesList() {
     fetchFavorites(user.id, token);
   }, [user, token, fetchFavorites]);
 
-  const isLogin = () => {
+  const isLogin = (id) => {
     if (user) {
-      handleFavorite(user.id, token, recipe.id);
+      handleFavorite(user.id, token, id);
     } else {
       toast({
         title: "Anda perlu masuk",
@@ -66,7 +64,7 @@ export function FavoritesList() {
 
   if (favoriteFoods.length === 0) {
     return (
-      <div className="text-center py-12">
+      <div className="text-center py-12 border-2 border-dashed rounded-xl">
         <h3 className="text-xl font-medium mb-2">Belum ada resep favorit</h3>
         <p className="text-muted-foreground mb-6">
           Mulai jelajahi resep dan simpan favorit Anda
@@ -94,7 +92,7 @@ export function FavoritesList() {
               </Link>
               <FavoriteButton
                 className="absolute left-2 top-2"
-                onClick={isLogin}
+                onClick={() => isLogin(recipe.id)}
               />
             </div>
           </CardHeader>
@@ -109,8 +107,9 @@ export function FavoritesList() {
             </p>
           </CardContent>
           <CardFooter className="p-4 pt-0">
-            <div className="text-sm text-muted-foreground">
-              {recipe.click_count || 0} views
+            <div className="text-sm text-muted-foreground flex gap-2 items-center justify-center">
+              <Eye className="h-4 w-4" />
+              {recipe.click_count || 0}
             </div>
             {recipe.province_name && (
               <div className="ml-auto text-sm bg-primary/10 text-primary px-2 py-1 rounded-full">

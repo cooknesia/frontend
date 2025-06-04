@@ -1,6 +1,5 @@
 import "@/app/globals.css";
 import { Chatbot } from "@/components/chatbot";
-import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/auth-context";

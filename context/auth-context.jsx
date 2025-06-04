@@ -1,6 +1,7 @@
 "use client";
 
 import { isTokenExpired } from "@/lib/utils";
+import { useFoodsStore } from "@/store/use-foods";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
@@ -33,11 +34,13 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(newUser));
   };
 
+  const clearData = useFoodsStore((state) => state.clearHistoryIngredients);
   const logout = () => {
     setToken(null);
     setUser(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    clearData();
   };
 
   return (

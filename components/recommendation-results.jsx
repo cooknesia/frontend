@@ -1,43 +1,43 @@
-"use client"
+"use client";
 
-import { RecipeCard } from "@/components/recipe-card"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { useAuth } from "@/context/auth-context"
-import { getFoodRecommendations } from "@/lib/api"
-import { nanoid } from "nanoid"
-import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { RecipeCard } from "@/components/recipe-card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth } from "@/context/auth-context";
+import { getFoodRecommendations } from "@/lib/api";
+import { nanoid } from "nanoid";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function RecommendationResults() {
-  const [recipes, setRecipes] = useState ([])
-  const [isLoading, setIsLoading] = useState(false)
-  const { user } = useAuth()
-  const searchParams = useSearchParams()
+  const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useAuth();
+  const searchParams = useSearchParams();
 
-  const ingredientIds = searchParams.get("ingredients")
+  const ingredientIds = searchParams.get("ingredients");
 
   useEffect(() => {
     const getRecommendations = async () => {
-      if (!user || !ingredientIds) return
+      if (!user || !ingredientIds) return;
 
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const ids = ingredientIds.split(",").map((id) => Number.parseInt(id))
-        const data = await getFoodRecommendations(user.id, ids)
-        setRecipes(data)
+        const ids = ingredientIds.split(",").map((id) => Number.parseInt(id));
+        const data = await getFoodRecommendations(user.id, ids);
+        setRecipes(data);
       } catch (error) {
-        console.error("Failed to fetch recommendations:", error)
+        console.error("Failed to fetch recommendations:", error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    getRecommendations()
-  }, [user, ingredientIds])
+    getRecommendations();
+  }, [user, ingredientIds]);
 
   if (!ingredientIds) {
-    return null
+    return null;
   }
 
   if (isLoading) {
@@ -60,7 +60,7 @@ export function RecommendationResults() {
             ))}
         </div>
       </div>
-    )
+    );
   }
 
   if (recipes.length === 0 && ingredientIds) {
@@ -69,12 +69,16 @@ export function RecommendationResults() {
         <h2 className="text-2xl font-bold mb-4">Resep yang Direkomendasikan</h2>
         <Card>
           <CardContent className="p-6 text-center">
-            <p className="mb-2">Tidak ada resep yang ditemukan dengan bahan-bahan ini</p>
-            <p className="text-sm text-muted-foreground">Coba pilih bahan yang berbeda</p>
+            <p className="mb-2">
+              Tidak ada resep yang ditemukan dengan bahan-bahan ini
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Coba pilih bahan yang berbeda
+            </p>
           </CardContent>
         </Card>
       </div>
-    )
+    );
   }
 
   return (
@@ -86,5 +90,5 @@ export function RecommendationResults() {
         ))}
       </div>
     </div>
-  )
+  );
 }

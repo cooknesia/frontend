@@ -41,7 +41,9 @@ export const useFoodsStore = create((set, get) => ({
     } finally {
       set({ loadHistoryIngredients: false });
     }
-  }, 
+  },
+
+  clearHistoryIngredients: () => set({ historyIngredients: [] }),
 
   handleFavorite: async (userId, token, foodId) => {
     set({ loading: true });

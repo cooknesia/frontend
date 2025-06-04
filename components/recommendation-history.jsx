@@ -1,46 +1,46 @@
-"use client"
+"use client";
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { useAuth } from "@/context/auth-context"
-import { getHistoryRecommendationByUserId } from "@/lib/api"
-import { formatDistanceToNow } from "date-fns"
-import { nanoid } from "nanoid"
-import Image from "next/image"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth } from "@/context/auth-context";
+import { getHistoryRecommendationByUserId } from "@/lib/api";
+import { formatDistanceToNow } from "date-fns";
+import { nanoid } from "nanoid";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function RecommendationHistory() {
-  const [history, setHistory] = useState ([])
-  const [isLoading, setIsLoading] = useState(true)
-  const { user } = useAuth()
-  const router = useRouter()
+  const [history, setHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const getHistory = async () => {
-      if (!user) return
+      if (!user) return;
 
       try {
-        const data = await getHistoryRecommendationByUserId(user.id)
-        setHistory(data)
+        const data = await getHistoryRecommendationByUserId(user.id);
+        setHistory(data);
       } catch (error) {
-        console.error("Failed to fetch recommendation history:", error)
+        console.error("Failed to fetch recommendation history:", error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    getHistory()
-  }, [user])
+    getHistory();
+  }, [user]);
 
-  const handleRepeatRecommendation = (ingredients ) => {
-    const params = new URLSearchParams()
-    params.set("ingredients", ingredients.join(","))
-    router.push(`/recommendations?${params.toString()}`)
-  }
+  const handleRepeatRecommendation = (ingredients) => {
+    const params = new URLSearchParams();
+    params.set("ingredients", ingredients.join(","));
+    router.push(`/recommendations?${params.toString()}`);
+  };
 
   if (isLoading) {
     return (
@@ -58,26 +58,33 @@ export function RecommendationHistory() {
                   {Array(3)
                     .fill(0)
                     .map(() => (
-                      <Skeleton key={nanoid()} className="h-[150px] w-full rounded-lg" />
+                      <Skeleton
+                        key={nanoid()}
+                        className="h-[150px] w-full rounded-lg"
+                      />
                     ))}
                 </div>
               </CardContent>
             </Card>
           ))}
       </div>
-    )
+    );
   }
 
   if (history.length === 0) {
     return (
       <div className="text-center py-12">
-        <h3 className="text-xl font-medium mb-2">No recommendation history yet</h3>
-        <p className="text-muted-foreground mb-6">Get your first recommendation to see it here</p>
+        <h3 className="text-xl font-medium mb-2">
+          No recommendation history yet
+        </h3>
+        <p className="text-muted-foreground mb-6">
+          Get your first recommendation to see it here
+        </p>
         <Button asChild>
           <Link href="/recommendations">Get Recommendations</Link>
         </Button>
       </div>
-    )
+    );
   }
 
   return (
@@ -87,9 +94,18 @@ export function RecommendationHistory() {
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
               <CardTitle>
-                Recommendation from {formatDistanceToNow(new Date(item.created_at), { addSuffix: true })}
+                Recommendation from{" "}
+                {formatDistanceToNow(new Date(item.created_at), {
+                  addSuffix: true,
+                })}
               </CardTitle>
-              <Button variant="outline" size="sm" onClick={() => handleRepeatRecommendation(item.selected_ingredients)}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  handleRepeatRecommendation(item.selected_ingredients)
+                }
+              >
                 Repeat
               </Button>
             </div>
@@ -121,7 +137,9 @@ export function RecommendationHistory() {
                         />
                       </div>
                       <CardContent className="p-3">
-                        <h4 className="font-medium line-clamp-1">{recipe.name}</h4>
+                        <h4 className="font-medium line-clamp-1">
+                          {recipe.name}
+                        </h4>
                       </CardContent>
                     </Card>
                   </Link>
@@ -132,5 +150,5 @@ export function RecommendationHistory() {
         </Card>
       ))}
     </div>
-  )
+  );
 }

@@ -1,8 +1,10 @@
 "use client";
 import { useAuth } from "@/context/auth-context";
 import { useToast } from "@/hooks/use-toast";
+import { getRatingFood } from "@/lib/api/api";
 import { useFoodsStore } from "@/store/use-foods";
 import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
@@ -15,21 +17,40 @@ import ShareButtons from "./share-buttons";
 export default function RecipeDetailContent({ recipe }) {
   const hashtags = recipe.description.match(/#\w+/g) || [];
   const cleanDescription = recipe.description.replace(/#\w+/g, "").trim();
+  const [userHasRated, setUserHasRated] = useState(false);
   const { user, token } = useAuth();
-  const { handleFavorite, openRatingDialog, isRatingDialogOpen } =
+  const { handleFavorite, openRatingDialog, isRatingDialogOpen, rating } =
     useFoodsStore();
   const { toast } = useToast();
 
-  const handleDialog = () => {
-    if (user) {
-      openRatingDialog();
-    } else {
+  useEffect(() => {
+    const fetchRate = async () => {
+      const response = await getRatingFood(recipe.id, token);
+      setUserHasRated(response.user_has_rated);
+    };
+    if (token) fetchRate();
+  }, [rating, token]);
+
+  const handleDialog = async () => {
+    if (!user) {
       toast({
         title: "Anda perlu masuk",
         description: "Silakan masuk untuk memberikan rating.",
         variant: "warning",
       });
+      return;
     }
+
+    if (userHasRated) {
+      toast({
+        title: "Upsss...",
+        description: "Anda telah memberikan rating sebelumnya.",
+        variant: "warning",
+      });
+      return;
+    }
+
+    openRatingDialog();
   };
 
   const isLogin = () => {
@@ -103,7 +124,9 @@ export default function RecipeDetailContent({ recipe }) {
                   onClick={handleDialog}
                 >
                   <Star className="h-5 w-5" />
-                  Beri Rating
+                  {userHasRated
+                    ? "Anda telah memberikan rating"
+                    : "Berikan Rating"}
                 </Button>
                 <RatingDialog
                   open={isRatingDialogOpen}

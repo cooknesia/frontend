@@ -1,6 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "../ui/button"
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default function Hero() {
   return (
@@ -13,8 +13,8 @@ export default function Hero() {
               <span className="text-custom-red-dark">Indonesia</span>
             </h1>
             <p className="text-xl text-foreground/80">
-              Jelajahi resep otentik Indonesia dari seluruh provinsi. Masak,
-              nilai, dan simpan favorit Anda.
+              Temukan berbagai resep asli dari seluruh nusantara. Nikmati
+              masakan lezat, berikan penilaian, dan simpan favorit Anda.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
@@ -34,11 +34,10 @@ export default function Hero() {
               className="h-full w-fit object-contain"
               priority
             />
-            <div className="absolute h-[30%] bottom-0 w-full bg-gradient-to-t from-black/60  to-transparent flex flex-col justify-end p-6"> 
-            </div>
+            <div className="absolute h-[30%] bottom-0 w-full bg-gradient-to-t from-black/60  to-transparent flex flex-col justify-end p-6"></div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

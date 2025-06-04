@@ -50,10 +50,6 @@ export function RecipeList() {
   }, [page]);
 
   useEffect(() => {
-    console.log("RECIPES : ", recipes);
-  }, [recipes]);
-
-  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (
@@ -79,10 +75,6 @@ export function RecipeList() {
       if (loader.current) observer.unobserve(loader.current);
     };
   }, [isLoading, isFetchingMore, totalPages, page]);
-
-  useEffect(() => {
-    console.log("RECIPES CHANGED : ", recipes);
-  }, [recipes])
 
   if (recipes.length === 0 && !isLoading) {
     return (

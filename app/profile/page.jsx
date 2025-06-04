@@ -68,7 +68,7 @@ export default function ProfilePage() {
   return (
     <ProtectedRoute>
       <div className="container mx-auto py-8 px-4 max-w-4xl">
-        <Card className="mb-8">
+        <Card className="mb-2">
           <CardHeader className="pb-4">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
               <Avatar className="w-24 h-24">

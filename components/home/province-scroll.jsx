@@ -1,60 +1,60 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import provinces from "@/data/provinces"
-import { cn } from "@/lib/utils"
-import { nanoid } from "nanoid"
-import Link from "next/link"
-import { useEffect, useRef } from "react"
+import { Card, CardContent } from "@/components/ui/card";
+import provinces from "@/data/provinces";
+import { cn } from "@/lib/utils";
+import { nanoid } from "nanoid";
+import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 export function ProvinceScroll() {
-  const scrollRef = useRef(null)
+  const scrollRef = useRef(null);
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current
-    if (!scrollContainer) return
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
 
     let animationFrameId;
-    let scrollPosition = 0
-    const scrollSpeed = 0.5
-    const containerWidth = scrollContainer.scrollWidth
-    const viewportWidth = scrollContainer.offsetWidth
+    let scrollPosition = 0;
+    const scrollSpeed = 0.5;
+    const containerWidth = scrollContainer.scrollWidth;
+    const viewportWidth = scrollContainer.offsetWidth;
 
     const scroll = () => {
-      if (!scrollContainer) return
+      if (!scrollContainer) return;
 
-      scrollPosition += scrollSpeed
+      scrollPosition += scrollSpeed;
       if (scrollPosition >= containerWidth / 2) {
-        scrollPosition = 0
+        scrollPosition = 0;
       }
 
-      scrollContainer.scrollLeft = scrollPosition
-      animationFrameId = requestAnimationFrame(scroll)
-    }
+      scrollContainer.scrollLeft = scrollPosition;
+      animationFrameId = requestAnimationFrame(scroll);
+    };
 
-    animationFrameId = requestAnimationFrame(scroll)
+    animationFrameId = requestAnimationFrame(scroll);
 
     const handleMouseEnter = () => {
-      cancelAnimationFrame(animationFrameId)
-    }
+      cancelAnimationFrame(animationFrameId);
+    };
 
     const handleMouseLeave = () => {
-      animationFrameId = requestAnimationFrame(scroll)
-    }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
 
-    scrollContainer.addEventListener("mouseenter", handleMouseEnter)
-    scrollContainer.addEventListener("mouseleave", handleMouseLeave)
+    scrollContainer.addEventListener("mouseenter", handleMouseEnter);
+    scrollContainer.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      cancelAnimationFrame(animationFrameId)
+      cancelAnimationFrame(animationFrameId);
       if (scrollContainer) {
-        scrollContainer.removeEventListener("mouseenter", handleMouseEnter)
-        scrollContainer.removeEventListener("mouseleave", handleMouseLeave)
+        scrollContainer.removeEventListener("mouseenter", handleMouseEnter);
+        scrollContainer.removeEventListener("mouseleave", handleMouseLeave);
       }
-    }
-  }, [])
+    };
+  }, []);
 
-  const displayProvinces = [...provinces, ...provinces]
+  const displayProvinces = [...provinces, ...provinces];
 
   return (
     <div className="w-full overflow-hidden">
@@ -65,27 +65,28 @@ export function ProvinceScroll() {
       >
         <div className="flex gap-4 min-w-max">
           {displayProvinces.map((province) => (
-            <Link className="cursor-pointer" key={nanoid()} href={`/resep?province=${province.id}`}>
-            
-            <Card
+            <Link
+              className="cursor-pointer"
               key={nanoid()}
-              className={cn(
-                "min-w-[180px] border-2 border-custom-red",
-              )}
+              href={`/resep?province=${province.id}`}
             >
-              <CardContent className="p-4 flex items-center gap-3">
-                <img
-                  src={`/provisi-icons/${province.src}`}
-                  alt={province.title}
-                  className="w-12 h-12"
-                />
-                <span className="font-medium">{province.title}</span>
-              </CardContent>
-            </Card>
+              <Card
+                key={nanoid()}
+                className={cn("min-w-[180px] border-2 border-custom-red")}
+              >
+                <CardContent className="p-4 flex items-center gap-3">
+                  <img
+                    src={`/provisi-icons/${province.src}`}
+                    alt={province.title}
+                    className="w-12 h-12"
+                  />
+                  <span className="font-medium">{province.title}</span>
+                </CardContent>
+              </Card>
             </Link>
           ))}
         </div>
       </div>
     </div>
-  )
+  );
 }

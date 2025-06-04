@@ -50,7 +50,7 @@ export default function Footer() {
                 >
                   Semua Resep
                 </Link>
-              </li> 
+              </li>
               <li>
                 <Link
                   href="/rekomendasi"

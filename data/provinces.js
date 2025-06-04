@@ -227,4 +227,4 @@ export default [
     src: "/sumatera-utara.svg",
     ibuKota: "Medan",
   },
-]
+];

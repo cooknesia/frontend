@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import ChatbotSection from "@/components/home/chatbot-section"
-import Hero from "@/components/home/hero-section"
-import { ProvinceScroll } from "@/components/home/province-scroll"
-import { PopularRecipes } from "@/components/popular-recipes"
-import { Button } from "@/components/ui/button"
+import ChatbotSection from "@/components/home/chatbot-section";
+import Hero from "@/components/home/hero-section";
+import { ProvinceScroll } from "@/components/home/province-scroll";
+import { PopularRecipes } from "@/components/popular-recipes";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { ChefHat, Heart, Star } from "lucide-react"
-import { nanoid } from "nanoid"
-import Link from "next/link"
+} from "@/components/ui/card";
+import { ChefHat, Heart, Star } from "lucide-react";
+import { nanoid } from "nanoid";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -59,13 +59,13 @@ export default function Home() {
               icon: <ChefHat className="h-10 w-10 text-primary" />,
             },
             {
-              title: "Simpan Favorit",
+              title: "Simpan Resep",
               description:
                 "Buat koleksi pribadi hidangan Indonesia favorit Anda",
               icon: <Heart className="h-10 w-10 text-primary" />,
             },
             {
-              title: "Nilai & Ulas",
+              title: "Rating Resep",
               description:
                 "Bagikan pengalaman Anda dan bantu orang lain menemukan resep lezat",
               icon: <Star className="h-10 w-10 text-primary" />,
@@ -96,5 +96,5 @@ export default function Home() {
         <PopularRecipes />
       </section>
     </div>
-  )
+  );
 }

@@ -6,7 +6,7 @@ import { Delete, Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export default function SearchBar( ) {
+export default function SearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("keyword") || "");
@@ -23,7 +23,7 @@ export default function SearchBar( ) {
       params.delete("keyword");
     }
 
-    router.push(`/resep?${params.toString()}`); 
+    router.push(`/resep?${params.toString()}`);
   };
 
   return (

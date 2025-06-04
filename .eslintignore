@@ -1,7 +1,0 @@
-node_modules
-.next
-public
-styles/*.css
-*.config.js
-*.config.mjs
-*.json
