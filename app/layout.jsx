@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/auth-context";
 import { ChatbotProvider } from "@/context/chatbot-context";
 import { Inter } from "next/font/google";
+import PWARegister from "./pwa";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,7 +41,7 @@ export const metadata = {
     title: "Cooknesia - Platform Resep Nusantara",
     description:
       "Temukan berbagai resep masakan khas Indonesia dari seluruh provinsi. Cooknesia hadir untuk membantu Anda memasak masakan nusantara dengan mudah dan praktis.",
-    url: "https://cooknesia.example.com",
+    url: "https://cooknesia.xyz",
     siteName: "Cooknesia",
     images: [
       {
@@ -66,6 +67,7 @@ export const metadata = {
   icons: {
     icon: "/favicon.png",
   },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }) {
@@ -77,7 +79,7 @@ export default function RootLayout({ children }) {
             <div className="flex min-h-screen flex-col relative">
               <Header />
               <main className="flex-1">{children}</main>
-              {/* <Footer /> */}
+              <PWARegister/>
               <Chatbot />
             </div>
             <Toaster />
