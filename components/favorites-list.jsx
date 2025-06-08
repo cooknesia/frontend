@@ -18,6 +18,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import RecipeLayout from "./layout/recipe-layout";
 import FavoriteButton from "./recipe-detail/favorite-button";
+import RecipeListSkeleton from "./recipes/recipe-sekeleton";
 
 export function FavoritesList() {
   const { user, token } = useAuth();
@@ -44,7 +45,7 @@ export function FavoritesList() {
 
   if (loading) {
     return (
-      <div className="w-full grid grid-cols-4 gap-2">
+      <RecipeListSkeleton>
         {Array(6)
           .fill(0)
           .map(() => (
@@ -58,7 +59,7 @@ export function FavoritesList() {
               </CardContent>
             </Card>
           ))}
-      </div>
+      </RecipeListSkeleton>
     );
   }
 

@@ -111,7 +111,7 @@ export default function ProfileRecommendationHistory({ history, isLoading }) {
                   <div className="pt-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {item.foods.map((recipe) => (
-                        <Link key={recipe.id} href={`/recipe/${recipe.id}`}>
+                        <Link key={recipe.id} href={`/resep/${recipe.id}`}>
                           <Card className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
                             <div className="relative aspect-square">
                               <Image

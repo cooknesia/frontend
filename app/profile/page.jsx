@@ -4,13 +4,14 @@ import ProfileFavorites from "@/components/profile/profile-favorites";
 import ProfileRecommendationHistory from "@/components/profile/profile-recommendation-history";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import { ProtectedRoute } from "@/components/protected-route";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/context/auth-context";
 import { useFoodsStore } from "@/store/use-foods";
 import { Calendar, LogOut, Mail, User } from "lucide-react";
+import Image from "next/image";
 import { useEffect } from "react";
 
 export default function ProfilePage() {
@@ -72,17 +73,13 @@ export default function ProfilePage() {
           <CardHeader className="pb-4">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
               <Avatar className="w-24 h-24">
-                {user.profile_image ? (
-                  <AvatarImage src={user.profile_image} alt={user.name} />
-                ) : (
-                  <AvatarFallback className="text-2xl">
-                    {user.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")
-                      .toUpperCase()}
-                  </AvatarFallback>
-                )}
+                <Image
+                  src={user.photo_url}
+                  alt={user.name}
+                  fill
+                  className="h-24 w-24"
+                  priority
+                />
               </Avatar>
 
               <div className="flex-1 text-center sm:text-left">
